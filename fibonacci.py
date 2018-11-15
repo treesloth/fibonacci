@@ -21,6 +21,8 @@ def fibonacci():
         num = float(query)
         if num in trivials:
             response['note'] = '0, 1, and 2 return the trivial initial sequence, set by definition'
+            fibs = generate_fibseq(num)
+            status = 200
             response['sequence'] = fibs
         elif int(num) != num:
             response['error'] = 'Positive integer required'
