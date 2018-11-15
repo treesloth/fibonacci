@@ -38,7 +38,7 @@ We start this with a little less assumption.  If you have a working Node.js inst
 Once installed, run the command:
 - js fibonacci.js
 
-This will open a listener on port 80800.  Open a browser and go to the address:
+This will open a listener on port 8080.  Open a browser and go to the address:
 - http://127.0.0.1:8080/5
 
 You should see output similar to:
