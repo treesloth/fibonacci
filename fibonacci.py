@@ -19,19 +19,24 @@ def fibonacci():
     response['datetime'] = time.time()
     try:
         num = float(query)
+        if num in trivials:
+            response['note'] = '0, 1, and 2 return the trivial initial sequence, set by definition'
+            response['sequence'] = fibs
+        elif int(num) != num:
+            response['error'] = 'Positive integer required'
+            status=400
+        elif num < 0:
+            response['error'] = 'Why so negative?'
+            status=400
+        else:
+            fibs = generate_fibseq(num)
+            status = 200
+            response['sequence'] = fibs
     except ValueError:
         response['error'] = 'Positive integer required'
-        return dumps(response), 400
-
-    if int(num) != num or num < 0:
-        response['error'] = 'Positive integer required'
-        return dumps(response), 400
-
-    fibs = generate_fibseq(num)
-    response['sequence'] = fibs
-    if num in trivials:
-        response['note'] = '0, 1, and 2 return the trivial initial sequence, set by definition'
-    return dumps(response), 200
+        status = 400
+    
+    return flask.Response(dumps(response), status=status, mimetype='text/json')
 
 def generate_fibseq( num ):
     fibs = [1, 1]
